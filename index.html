@@ -160,7 +160,6 @@ body{
 .letter-lines i:nth-child(3){width:65%}
 .letter-lines i:nth-child(4){width:78%}
 
-/* ---------------- CARD ---------------- */
 .card-stage{
   position:absolute;inset:0;
   display:grid;place-items:center;
@@ -185,7 +184,6 @@ body{
   overflow:hidden;
 }
 
-/* title bar */
 .titlebar{
   height:32px;
   background:#f3a0b3;
@@ -210,7 +208,6 @@ body{
   font-size:12px;
 }
 
-/* gingham content */
 .content{
   position:absolute;left:0;right:0;top:63px;bottom:0;
   padding:17px 13px 12px;
@@ -508,9 +505,6 @@ body{
 </main>
 
 <script>
-/* Keep a reliable viewport-height unit for in-app browsers (Messenger, IG, etc.)
-   whose chrome resizes the visible viewport without firing a normal resize,
-   and whose reported 100vh/100dvh is sometimes wrong until it settles. */
 function setVH(){
   const h = (window.visualViewport ? window.visualViewport.height : window.innerHeight);
   document.documentElement.style.setProperty('--vh', (h * 0.01) + 'px');
@@ -522,8 +516,7 @@ if (window.visualViewport){
   window.visualViewport.addEventListener('resize', setVH);
   window.visualViewport.addEventListener('scroll', setVH);
 }
-// Re-check a moment after load in case the in-app browser's chrome
-// (address bar / footer) settles a beat after the page reports ready.
+
 window.addEventListener('load', () => setTimeout(setVH, 300));
 
 const screen = document.getElementById("screen");
@@ -653,7 +646,6 @@ document.addEventListener("pointermove", e => {
   const cx = r.left + r.width/2;
   const cy = r.top + r.height/2;
 
-  // Escape before the cursor reaches the button.
   if(Math.hypot(e.clientX-cx, e.clientY-cy) < 95){
     moveNoButton();
   }
