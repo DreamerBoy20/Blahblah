@@ -334,6 +334,8 @@ body{
   cursor:pointer;
   position:relative;
   z-index:30;
+  touch-action:none;
+  -webkit-tap-highlight-color:transparent;
   transition:left .16s ease,top .16s ease,transform .12s ease;
 }
 .no:hover{
@@ -343,7 +345,8 @@ body{
   position:fixed;
   transition:left .16s ease,top .16s ease;
 }
-.window.accepted .no{
+.window.accepted .no,
+.no.hidden{
   opacity:0;
   pointer-events:none;
 }
@@ -399,15 +402,30 @@ body{
 }
 .cursor.play{animation:clickmove 1.1s ease forwards}
 
-/* mobile */
+/* mobile / tablet */
+@media(max-width:768px){
+  .screen{
+    width:100vw;
+    height:100vh;
+    height:100dvh;
+    aspect-ratio:auto;
+    border-radius:0;
+  }
+}
 @media(max-width:560px){
-  .screen{width:96vw}
-  .window{transform:scale(.78)}
-  .card-stage.show{transform:scale(.92)}
+  .window{transform:scale(.82)}
+  .card-stage.show{transform:scale(1)}
   .intro{padding-top:12%}
   .envelope-wrap{transform:scale(.86)}
   .intro-title{font-size:15px}
-  .tap{font-size:9px}
+  .tap{font-size:9px;padding:0 10%;text-align:center}
+}
+@media(max-width:380px),(max-height:600px){
+  .window{transform:scale(.7)}
+  .envelope-wrap{transform:scale(.75)}
+}
+@media(hover:none) and (pointer:coarse){
+  .yes:hover,.no:hover{transform:none}
 }
 </style>
 </head>
@@ -445,7 +463,7 @@ body{
   <section class="card-stage" id="cardStage">
     <div class="window" id="window">
       <div class="titlebar">
-  
+        I LOVE
         <div class="window-buttons"><b></b><b></b><b></b></div>
       </div>
 
@@ -455,11 +473,11 @@ body{
 
       <div class="content">
         <div class="message" id="message">
-          Crush back?
+          Crushback????
         </div>
 
         <div class="final-msg" id="finalMsg">
-          HAHHAHAHHAHAHHAHAHAH JK
+          Yayyy! JK
           <small>♥</small>
         </div>
 
@@ -559,10 +577,20 @@ envelope.addEventListener("pointerdown",()=>{
 
 /* The NO button runs away whenever the user tries to click, touch, or hover it —
    but it's only allowed to dash around inside the dark pink card rectangle
-   (.window), never outside it onto the cream mockup background. */
+   (.window), never outside it onto the cream mockup background. Works the
+   same way on desktop mouse and Android/iOS touch. */
 const no = document.getElementById("no");
 
 function moveNoButton(){
+  // .card-stage always carries a CSS transform (even at scale(1)), and
+  // .window gets one too on small screens. A transformed ancestor becomes
+  // the containing block for position:fixed children, which would throw
+  // off our viewport-based math. Detaching the button straight onto <body>
+  // guarantees "fixed" really means fixed to the real screen on every device.
+  if (no.parentElement !== document.body){
+    document.body.appendChild(no);
+  }
+
   const pad = 8;
   const windowRect = windowCard.getBoundingClientRect();
   const rect = no.getBoundingClientRect();
@@ -570,16 +598,17 @@ function moveNoButton(){
   no.classList.add("running");
 
   // Bounds are the pink .window card box, converted to viewport coords
-  // so position:fixed placement stays confined to it.
+  // so position:fixed placement stays confined to it. Clamped so tiny
+  // screens never produce an inverted (max < min) range.
   const minX = windowRect.left + pad;
   const minY = windowRect.top + pad;
-  const maxX = windowRect.right - rect.width - pad;
-  const maxY = windowRect.bottom - rect.height - pad;
+  const maxX = Math.max(minX, windowRect.right - rect.width - pad);
+  const maxY = Math.max(minY, windowRect.bottom - rect.height - pad);
 
   let x = random(minX, maxX);
   let y = random(minY, maxY);
 
-  // Avoid putting it too close to the current pointer area.
+  // Avoid putting it too close to the current pointer/touch point.
   if (window.lastPointerX !== undefined){
     for(let i=0;i<12;i++){
       x = random(minX, maxX);
@@ -605,6 +634,8 @@ no.addEventListener("click", e => {
 });
 no.addEventListener("touchstart", e => {
   e.preventDefault();
+  window.lastPointerX = e.touches[0].clientX;
+  window.lastPointerY = e.touches[0].clientY;
   moveNoButton();
 }, {passive:false});
 
@@ -624,14 +655,42 @@ document.addEventListener("pointermove", e => {
   }
 });
 
-// Keep the NO button inside the screen bounds if the window is resized while running.
-window.addEventListener("resize", () => {
-  if(no.classList.contains("running")) moveNoButton();
-});
+document.addEventListener("touchmove", e => {
+  const t = e.touches[0];
+  if(!t) return;
+  window.lastPointerX = t.clientX;
+  window.lastPointerY = t.clientY;
+
+  if(!no.classList.contains("running")) return;
+
+  const r = no.getBoundingClientRect();
+  const cx = r.left + r.width/2;
+  const cy = r.top + r.height/2;
+
+  if(Math.hypot(t.clientX-cx, t.clientY-cy) < 95){
+    moveNoButton();
+  }
+}, {passive:true});
+
+// Keep the NO button correctly placed if the viewport changes size, rotates,
+// or the mobile browser chrome (address bar) shows/hides.
+let viewportChangeTimer;
+function handleViewportChange(){
+  clearTimeout(viewportChangeTimer);
+  viewportChangeTimer = setTimeout(() => {
+    if(no.classList.contains("running")) moveNoButton();
+  }, 150);
+}
+window.addEventListener("resize", handleViewportChange);
+window.addEventListener("orientationchange", handleViewportChange);
+if (window.visualViewport){
+  window.visualViewport.addEventListener("resize", handleViewportChange);
+}
 
 /* YES */
 yes.addEventListener("click",()=>{
   windowCard.classList.add("accepted");
+  no.classList.add("hidden");
   note.classList.add("show");
   burstHearts();
 });
