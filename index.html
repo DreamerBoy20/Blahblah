@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>A Little Surprise ♡</title>
+<title>HEHEHE</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&display=swap');
@@ -58,7 +58,6 @@ body{
   50%{transform:translateY(-12px) rotate(8deg)}
 }
 
-/* ---------------- INTRO ---------------- */
 .intro{
   position:absolute;inset:0;
   display:flex;flex-direction:column;align-items:center;
@@ -224,7 +223,6 @@ body{
   text-shadow:1px 1px 0 rgba(255,255,255,.22);
 }
 
-/* Pixel couple — CSS pixel art */
 .couple{
   position:relative;
   width:145px;height:105px;
@@ -278,7 +276,6 @@ body{
   left:50%;bottom:17px;transform:translateX(-50%);
 }
 
-/* little floating note on right in reference */
 .note{
   position:absolute;
   right:22px;top:154px;
@@ -351,7 +348,6 @@ body{
   pointer-events:none;
 }
 
-/* final state */
 .final-msg{
   position:absolute;left:0;right:0;top:17px;
   font-size:20px;font-weight:600;line-height:1.05;
@@ -366,7 +362,7 @@ body{
 .window.accepted .yes{opacity:0;pointer-events:none}
 .window.accepted .final-msg{opacity:1;transform:none}
 
-/* floating celebration hearts */
+
 .celebration{
   position:absolute;inset:0;pointer-events:none;z-index:10;overflow:hidden;
 }
@@ -402,7 +398,6 @@ body{
 }
 .cursor.play{animation:clickmove 1.1s ease forwards}
 
-/* mobile / tablet */
 @media(max-width:768px){
   .screen{
     width:100vw;
@@ -435,7 +430,6 @@ body{
   <div class="speckles" id="speckles"></div>
   <div class="hearts-bg" id="heartsBg"></div>
 
-  <!-- INTRO -->
   <section class="intro" id="intro">
     <div class="envelope-wrap" id="envelope" aria-label="Open the envelope">
       <div class="envelope"></div>
@@ -522,7 +516,6 @@ let holdTimer;
 
 function random(min,max){return Math.random()*(max-min)+min}
 
-/* background particles */
 for(let i=0;i<42;i++){
   const s=document.createElement("span");
   s.className="speck";
@@ -543,7 +536,6 @@ for(let i=0;i<13;i++){
   document.getElementById("heartsBg").appendChild(h);
 }
 
-/* Click/tap intro */
 function openEnvelope(){
   if(opened) return;
   opened=true;
@@ -574,19 +566,9 @@ envelope.addEventListener("pointerdown",()=>{
   });
 });
 
-
-/* The NO button runs away whenever the user tries to click, touch, or hover it —
-   but it's only allowed to dash around inside the dark pink card rectangle
-   (.window), never outside it onto the cream mockup background. Works the
-   same way on desktop mouse and Android/iOS touch. */
 const no = document.getElementById("no");
 
 function moveNoButton(){
-  // .card-stage always carries a CSS transform (even at scale(1)), and
-  // .window gets one too on small screens. A transformed ancestor becomes
-  // the containing block for position:fixed children, which would throw
-  // off our viewport-based math. Detaching the button straight onto <body>
-  // guarantees "fixed" really means fixed to the real screen on every device.
   if (no.parentElement !== document.body){
     document.body.appendChild(no);
   }
@@ -597,9 +579,6 @@ function moveNoButton(){
 
   no.classList.add("running");
 
-  // Bounds are the pink .window card box, converted to viewport coords
-  // so position:fixed placement stays confined to it. Clamped so tiny
-  // screens never produce an inverted (max < min) range.
   const minX = windowRect.left + pad;
   const minY = windowRect.top + pad;
   const maxX = Math.max(minX, windowRect.right - rect.width - pad);
@@ -608,7 +587,6 @@ function moveNoButton(){
   let x = random(minX, maxX);
   let y = random(minY, maxY);
 
-  // Avoid putting it too close to the current pointer/touch point.
   if (window.lastPointerX !== undefined){
     for(let i=0;i<12;i++){
       x = random(minX, maxX);
@@ -672,8 +650,6 @@ document.addEventListener("touchmove", e => {
   }
 }, {passive:true});
 
-// Keep the NO button correctly placed if the viewport changes size, rotates,
-// or the mobile browser chrome (address bar) shows/hides.
 let viewportChangeTimer;
 function handleViewportChange(){
   clearTimeout(viewportChangeTimer);
@@ -687,7 +663,6 @@ if (window.visualViewport){
   window.visualViewport.addEventListener("resize", handleViewportChange);
 }
 
-/* YES */
 yes.addEventListener("click",()=>{
   windowCard.classList.add("accepted");
   no.classList.add("hidden");
@@ -722,7 +697,6 @@ function burstHearts(){
   }
 }
 
-/* Make Enter/Space work too */
 yes.addEventListener("keydown",e=>{
   if(e.key==="Enter" || e.key===" "){e.preventDefault();yes.click()}
 });
