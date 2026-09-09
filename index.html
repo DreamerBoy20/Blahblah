@@ -2,12 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>HEHEHE</title>
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&display=swap');
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+<style>
 :root{
   --cream:#fff8ee;
   --pink:#f5a6b8;
@@ -16,16 +18,25 @@
   --dark:#28222a;
   --red:#ef4563;
   --shadow:rgba(105,55,68,.24);
+  --vh:1vh;
 }
 
 *{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%;overflow:hidden}
+html,body{
+  margin:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  overscroll-behavior:none;
+  -webkit-text-size-adjust:100%;
+}
 body{
   background:#111b25;
   display:grid;
   place-items:center;
   font-family:"Pixelify Sans",monospace;
   color:var(--dark);
+  touch-action:manipulation;
 }
 
 .screen{
@@ -401,8 +412,7 @@ body{
 @media(max-width:768px){
   .screen{
     width:100vw;
-    height:100vh;
-    height:100dvh;
+    height:calc(var(--vh,1vh) * 100);
     aspect-ratio:auto;
     border-radius:0;
   }
@@ -498,6 +508,24 @@ body{
 </main>
 
 <script>
+/* Keep a reliable viewport-height unit for in-app browsers (Messenger, IG, etc.)
+   whose chrome resizes the visible viewport without firing a normal resize,
+   and whose reported 100vh/100dvh is sometimes wrong until it settles. */
+function setVH(){
+  const h = (window.visualViewport ? window.visualViewport.height : window.innerHeight);
+  document.documentElement.style.setProperty('--vh', (h * 0.01) + 'px');
+}
+setVH();
+window.addEventListener('resize', setVH);
+window.addEventListener('orientationchange', setVH);
+if (window.visualViewport){
+  window.visualViewport.addEventListener('resize', setVH);
+  window.visualViewport.addEventListener('scroll', setVH);
+}
+// Re-check a moment after load in case the in-app browser's chrome
+// (address bar / footer) settles a beat after the page reports ready.
+window.addEventListener('load', () => setTimeout(setVH, 300));
+
 const screen = document.getElementById("screen");
 const intro = document.getElementById("intro");
 const envelope = document.getElementById("envelope");
