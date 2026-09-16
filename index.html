@@ -11,13 +11,13 @@
 
 <style>
 :root{
-  --cream:#fff8ee;
-  --pink:#f5a6b8;
-  --pink2:#ffb7c7;
-  --pink3:#ffd7e0;
-  --dark:#28222a;
-  --red:#ef4563;
-  --shadow:rgba(105,55,68,.24);
+  --cream:#f4ead2;
+  --pink:#d6d0c4;
+  --pink2:#e7e2d8;
+  --pink3:#cfcfcf;
+  --dark:#161616;
+  --red:#bdb7aa;
+  --shadow:rgba(0,0,0,.32);
   --vh:1vh;
 }
 
@@ -31,11 +31,11 @@ html,body{
   -webkit-text-size-adjust:100%;
 }
 body{
-  background:#111b25;
+  background:#080808;
   display:grid;
   place-items:center;
   font-family:"Pixelify Sans",monospace;
-  color:var(--dark);
+  color:#fff;
   touch-action:manipulation;
 }
 
@@ -46,20 +46,20 @@ body{
   overflow:hidden;
   border-radius:10px;
   background:
-    radial-gradient(circle at 20% 45%,rgba(255,188,202,.25),transparent 35%),
-    linear-gradient(110deg,#fff1ed 0%,#fffaf0 52%,#fff5ea 100%);
+    radial-gradient(circle at 20% 45%,rgba(244,234,210,.10),transparent 35%),
+    linear-gradient(110deg,#111 0%,#1b1b1b 52%,#0b0b0b 100%);
   box-shadow:0 0 0 2px rgba(255,255,255,.12),0 16px 45px rgba(0,0,0,.38);
 }
 
 /* tiny background speckles like the reference */
-.speckles,.hearts-bg{position:absolute;inset:0;pointer-events:none}
+.speckles{position:absolute;inset:0;pointer-events:none}
 .speck{
   position:absolute;width:3px;height:3px;border-radius:50%;
-  background:rgba(88,69,66,.26);
+  background:rgba(255,255,255,.22);
 }
 .bg-heart{
   position:absolute;
-  color:#e85a74;
+  color:#fff;
   font-size:13px;
   opacity:.7;
   animation:drift 5s ease-in-out infinite;
@@ -88,8 +88,8 @@ body{
 .envelope-wrap:hover{transform:translateY(-3px)}
 .envelope{
   position:absolute;inset:0;
-  background:#fffdf7;
-  border:3px solid #df8e9f;
+  background:#f4ead2;
+  border:3px solid #777;
   border-radius:3px;
   overflow:hidden;
 }
@@ -97,15 +97,15 @@ body{
   content:"";
   position:absolute;inset:0;
   background:
-    linear-gradient(34deg,transparent 49%,#d99aaa 50%,#d99aaa 51%,transparent 52%),
-    linear-gradient(-34deg,transparent 49%,#d99aaa 50%,#d99aaa 51%,transparent 52%);
+    linear-gradient(34deg,transparent 49%,#777 50%,#777 51%,transparent 52%),
+    linear-gradient(-34deg,transparent 49%,#777 50%,#777 51%,transparent 52%);
   opacity:.75;
 }
 .flap{
   position:absolute;left:0;top:0;width:100%;height:57%;
-  background:#f4a6b8;
+  background:#d8d2c5;
   clip-path:polygon(0 0,100% 0,50% 72%);
-  border-top:2px solid #e08d9f;
+  border-top:2px solid #777;
   transform-origin:top center;
   transition:transform .85s cubic-bezier(.2,.8,.2,1);
   z-index:3;
@@ -141,8 +141,8 @@ body{
   width:108px;height:145px;
   transform:translate(-50%,20px) scale(.75);
   opacity:0;
-  background:#fffdf8;
-  border:2px solid #e6a0ae;
+  background:#f4ead2;
+  border:2px solid #777;
   box-shadow:0 4px 8px var(--shadow);
   z-index:2;
   transition:transform .9s cubic-bezier(.16,.8,.25,1),opacity .3s;
@@ -155,7 +155,7 @@ body{
   margin:24px 13px;
   display:grid;gap:9px;
 }
-.letter-lines i{height:4px;background:#efb0bd;border-radius:2px}
+.letter-lines i{height:4px;background:#aaa;border-radius:2px}
 .letter-lines i:nth-child(2){width:82%}
 .letter-lines i:nth-child(3){width:65%}
 .letter-lines i:nth-child(4){width:78%}
@@ -177,17 +177,17 @@ body{
   position:relative;
   width:256px;
   height:304px;
-  border:3px solid #df8b9e;
+  border:3px solid #777;
   border-radius:6px;
-  background:#f6a9ba;
-  box-shadow:0 8px 15px rgba(135,69,83,.22);
+  background:#222;
+  box-shadow:0 8px 15px rgba(0,0,0,.45);
   overflow:hidden;
 }
 
 .titlebar{
   height:32px;
-  background:#f3a0b3;
-  border-bottom:2px solid #db8799;
+  background:#171717;
+  border-bottom:2px solid #666;
   display:flex;align-items:center;
   padding:0 9px;
   font-size:11px;font-weight:700;
@@ -202,9 +202,9 @@ body{
 .toolbar{
   height:31px;
   display:flex;justify-content:center;align-items:center;gap:15px;
-  background:#fff9f2;
-  border-bottom:2px solid #df8f9f;
-  color:#e94b68;
+  background:#f4ead2;
+  border-bottom:2px solid #777;
+  color:#fff;
   font-size:12px;
 }
 
@@ -212,12 +212,12 @@ body{
   position:absolute;left:0;right:0;top:63px;bottom:0;
   padding:17px 13px 12px;
   text-align:center;
-  background-color:#ffc2cf;
+  background-color:#1f1f1f;
   background-image:
-    linear-gradient(rgba(236,120,143,.22) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(236,120,143,.22) 1px,transparent 1px),
-    linear-gradient(rgba(255,255,255,.22) 50%,transparent 50%),
-    linear-gradient(90deg,rgba(255,255,255,.22) 50%,transparent 50%);
+    linear-gradient(rgba(255,255,255,.08) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px),
+    linear-gradient(rgba(244,234,210,.08) 50%,transparent 50%),
+    linear-gradient(90deg,rgba(244,234,210,.08) 50%,transparent 50%);
   background-size:10px 10px,10px 10px,20px 20px,20px 20px;
 }
 
@@ -227,8 +227,8 @@ body{
   font-weight:600;
   margin:0 auto 9px;
   max-width:225px;
-  color:#38282f;
-  text-shadow:1px 1px 0 rgba(255,255,255,.22);
+  color:#fff;
+  text-shadow:1px 1px 0 rgba(0,0,0,.35);
 }
 
 .couple{
@@ -254,16 +254,16 @@ body{
 .left .eye{left:10px}.right .eye{right:10px}
 .face-pink{
   position:absolute;bottom:13px;left:50%;transform:translateX(-50%);
-  width:23px;height:17px;background:#f04861;
+  width:23px;height:17px;background:#777;
 }
 .body-heart{
   position:absolute;left:50%;top:45px;
   transform:translateX(-50%) rotate(45deg);
-  width:28px;height:28px;background:#f13f5c;
+  width:28px;height:28px;background:#777;
   z-index:4;
 }
 .body-heart:before,.body-heart:after{
-  content:"";position:absolute;width:28px;height:28px;background:#f13f5c;border-radius:50%;
+  content:"";position:absolute;width:28px;height:28px;background:#777;border-radius:50%;
 }
 .body-heart:before{left:-14px;top:0}
 .body-heart:after{left:0;top:-14px}
@@ -288,7 +288,7 @@ body{
   position:absolute;
   right:22px;top:154px;
   width:37px;height:25px;
-  background:#fffdf8;border:2px solid #e2a2ae;
+  background:#f4ead2;border:2px solid #e2a2ae;
   font-size:8px;display:grid;place-items:center;
   transform:rotate(-2deg);
   opacity:0;
@@ -311,31 +311,31 @@ body{
   margin:3px auto 0;
   min-width:72px;height:37px;
   padding:0 15px;
-  border:2px solid #e28e9e;
+  border:2px solid #777;
   border-radius:3px;
-  background:#fffdf8;
-  color:#d94662;
+  background:#f4ead2;
+  color:#030202;
   font-family:inherit;font-size:14px;font-weight:700;
-  box-shadow:0 3px 0 #d891a0;
+  box-shadow:0 3px 0 #555;
   cursor:pointer;
   transition:transform .12s,box-shadow .12s;
 }
 .yes:hover{transform:translateY(-2px)}
-.yes:active{transform:translateY(2px);box-shadow:0 1px 0 #d891a0}
+.yes:active{transform:translateY(2px);box-shadow:0 1px 0 #555}
 
 
 .no{
   min-width:72px;
   height:37px;
   padding:0 15px;
-  border:2px solid #e28e9e;
+  border:2px solid #777;
   border-radius:3px;
-  background:#fffdf8;
-  color:#d94662;
+  background:#f4ead2;
+  color:#060404;
   font-family:inherit;
   font-size:14px;
   font-weight:700;
-  box-shadow:0 3px 0 #d891a0;
+  box-shadow:0 3px 0 #555;
   cursor:pointer;
   position:relative;
   z-index:30;
@@ -378,9 +378,9 @@ body{
   position:absolute;
   bottom:35%;
   font-size:20px;
-  color:#ed4765;
+  color:#fff;
   animation:burst 2.1s cubic-bezier(.15,.7,.25,1) forwards;
-  text-shadow:0 2px 0 rgba(160,63,81,.12);
+  text-shadow:0 2px 0 rgba(0,0,0,.25);
 }
 @keyframes burst{
   0%{opacity:0;transform:translate(0,20px) scale(.4) rotate(0)}
@@ -392,7 +392,7 @@ body{
   position:absolute;
   width:12px;height:17px;
   border-left:2px solid #333;
-  border-top:2px solid #333;
+  border-top:2px solid #fff;
   transform:rotate(-18deg);
   opacity:0;
   pointer-events:none;
@@ -435,13 +435,12 @@ body{
 <body>
 <main class="screen" id="screen">
   <div class="speckles" id="speckles"></div>
-  <div class="hearts-bg" id="heartsBg"></div>
 
   <section class="intro" id="intro">
     <div class="envelope-wrap" id="envelope" aria-label="Open the envelope">
       <div class="envelope"></div>
       <div class="flap"></div>
-      <div class="seal">♥</div>
+      <div class="seal">+</div>
     </div>
 
     <div class="letter" id="letter">
@@ -451,7 +450,7 @@ body{
     </div>
 
     <div class="intro-title">
-      <span>♥</span> Pindota <span>♥</span>
+      Pindota 
     </div>
 
     <div class="cursor" id="cursor"></div>
@@ -460,7 +459,7 @@ body{
   <section class="card-stage" id="cardStage">
     <div class="window" id="window">
       <div class="titlebar">
-        1+1?
+        
         <div class="window-buttons"><b></b><b></b><b></b></div>
       </div>
 
@@ -469,12 +468,11 @@ body{
 
       <div class="content">
         <div class="message" id="message">
-          1 + 1 = ?
+          Gusto ka mo pasar para ogma?
         </div>
 
         <div class="final-msg" id="finalMsg">
-          HAHAHA
-          <small>♥</small>
+          Jk lang 😭 Mapasar lagi ka
         </div>
 
         <div class="couple" id="couple">
@@ -493,7 +491,7 @@ body{
 
         <div class="note" id="note">♥</div>
 
-        <div class="choices"><button class="yes" id="yes">11</button><button class="no" id="no">2</button></div>
+        <div class="choices"><button class="yes" id="yes">NO</button><button class="no" id="no">YES</button></div>
       </div>
     </div>
   </section>
@@ -522,8 +520,6 @@ const envelope = document.getElementById("envelope");
 const cardStage = document.getElementById("cardStage");
 const windowCard = document.getElementById("window");
 const yes = document.getElementById("yes");
-const note = document.getElementById("note");
-const celebration = document.getElementById("celebration");
 const cursor = document.getElementById("cursor");
 
 let opened = false;
@@ -540,16 +536,6 @@ for(let i=0;i<42;i++){
   s.style.opacity=random(.18,.65);
   s.style.transform=`scale(${random(.5,1.5)})`;
   document.getElementById("speckles").appendChild(s);
-}
-for(let i=0;i<13;i++){
-  const h=document.createElement("span");
-  h.className="bg-heart";
-  h.textContent=Math.random()>.25?"♥":"·";
-  h.style.left=random(5,95)+"%";
-  h.style.top=random(5,92)+"%";
-  h.style.animationDelay=random(0,4)+"s";
-  h.style.fontSize=random(8,14)+"px";
-  document.getElementById("heartsBg").appendChild(h);
 }
 
 function openEnvelope(){
@@ -681,36 +667,8 @@ if (window.visualViewport){
 yes.addEventListener("click",()=>{
   windowCard.classList.add("accepted");
   no.classList.add("hidden");
-  note.classList.add("show");
-  burstHearts();
 });
 
-function burstHearts(){
-  const symbols=["♥","♥","♡","♥","♥"];
-  for(let i=0;i<28;i++){
-    const h=document.createElement("span");
-    h.className="celebrate-heart";
-    h.textContent=symbols[Math.floor(Math.random()*symbols.length)];
-
-    const startX=random(32,68);
-    const x=random(-230,230);
-    const y=random(-120,190);
-    const scale=random(.55,1.35);
-    const rot=random(-50,50);
-
-    h.style.left=startX+"%";
-    h.style.bottom=random(28,48)+"%";
-    h.style.setProperty("--x",x+"px");
-    h.style.setProperty("--y",y+"px");
-    h.style.setProperty("--s",scale);
-    h.style.setProperty("--r",rot+"deg");
-    h.style.animationDelay=random(0,.65)+"s";
-    h.style.fontSize=random(13,28)+"px";
-
-    celebration.appendChild(h);
-    setTimeout(()=>h.remove(),2800);
-  }
-}
 
 yes.addEventListener("keydown",e=>{
   if(e.key==="Enter" || e.key===" "){e.preventDefault();yes.click()}
